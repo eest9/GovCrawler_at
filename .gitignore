@@ -1,0 +1,4 @@
+# ignore all secrets
+*.secret
+
+/data/protokolle/*

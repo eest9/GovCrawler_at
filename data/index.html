@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--<link rel="stylesheet" type="text/css" href="css/main.css">-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<div id="protocol">
+</div>
+</body>
+<footer>
+  <script>
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var argument, i;
+      i = 0;
+      protocol = JSON.parse(this.responseText);
+
+      for (let i in protocol) {
+        var top_element = document.createElement("P");// Create a <p> element
+        top_element.id = "index-" + i;// Insert text
+        top_element.className += "top";
+        if (typeof protocol[i].top !== 'undefined') {
+          top_element.innerHTML = "<span id='top_" + protocol[i].top + "' class='top nr'>" + protocol[i].top + "</span> <span class='top title'>" + protocol[i].title + "</span>";
+        } else if (typeof protocol[i].undefined !== 'undefined') {
+          top_element.innerHTML = protocol[i].undefined;
+        } else {
+          top_element.innerHTML = "ERROR: There is no known Element in the protokoll JSON";
+        }
+        document.getElementById("protocol").appendChild(top_element);
+      }
+    }
+  };
+  //xmlhttp.open("GET", "protokolle/Bierlein-1/Beschlussprotokoll des 18. Ministerrates vom 6. November 2019/text.json", true);
+  xmlhttp.open("GET", "protokolle/Kurz-2/Beschlussprotokoll des 2. Ministerrates vom 15. Jänner 2020/text.json", true);
+  //xmlhttp.open("GET", "protokolle/Bierlein-1/Beschlussprotokoll des 17. Ministerrates vom 30. Oktober 2019/text.json", true);
+  xmlhttp.send();
+  </script>
+</footer>
+</html>
