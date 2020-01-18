@@ -21,5 +21,11 @@ mastodon = Mastodon(
 #create a thread with the latest protocol
 toot = toot = mastodon.status_post(last_protocol + " #test", visibility="unlisted", spoiler_text="test, Hackathon 0x11")
 for i in protocol:
-    print("Top " + protocol[protocol.index(i)]['top'] + ": " + protocol[protocol.index(i)]['title'])
-    toot = mastodon.status_reply(toot,"Top " + protocol[protocol.index(i)]['top'] + ": " + protocol[protocol.index(i)]['title'] + " #test")
+        print("Top " + protocol[protocol.index(i)]['top'] + ": " + protocol[protocol.index(i)]['title'])
+        toot = mastodon.status_reply(toot,"Top " + protocol[protocol.index(i)]['top'] + ": " + protocol[protocol.index(i)]['title'] + " #test")
+    except:
+        try:
+            print(protocol[protocol.index(i)]['undefined'])
+            toot = mastodon.status_reply(toot, protocol[protocol.index(i)]['undefined'] + " #test")
+        except:
+            print("ERROR: There is no known Element in the protokoll JSON")
