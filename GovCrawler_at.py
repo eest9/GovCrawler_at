@@ -16,5 +16,11 @@ mastodon = Mastodon(
     api_base_url = 'https://botsin.space'
 )
 
-#print(protocol[0]['title'])
-mastodon.status_post("Top " + protocol[0]['top'] + ": " + protocol[0]['title'], visibility="unlisted", spoiler_text="test, Hackathon 0x11")
+last_toot = 0
+
+for i in protocol:
+    print("Top " + protocol[protocol.index(i)]['top'] + ": " + protocol[protocol.index(i)]['title'])
+    if protocol.index(i) == 0:
+        last_toot = mastodon.status_post("Top " + protocol[protocol.index(i)]['top'] + ": " + protocol[protocol.index(i)]['title'] + " #test", visibility="unlisted", spoiler_text="test, Hackathon 0x11")
+    else:
+        last_toot = mastodon.status_reply(last_toot,"Top " + protocol[protocol.index(i)]['top'] + ": " + protocol[protocol.index(i)]['title'] + " #test")
