@@ -12,8 +12,8 @@
 </body>
 <footer>
   <script>
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
+  var protocol_json = new XMLHttpRequest();
+  protocol_json.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var argument, i, ii, annexes_element;
       i = 0;
@@ -23,7 +23,7 @@
         var top_element = document.createElement("P");// Create a <p> element
         top_element.id = "index-" + i;// Insert text
         top_element.className += "top";
-        if (typeof protocol[i].top !== 'undefined') {
+        if (typeof protocol[i].top !== 'undefined') { //for TOPs with annexes
           for (let ii in protocol[i].annexes) {
             if (typeof protocol[i].annexes[ii].bka_url !== 'undefined' && protocol[i].annexes[ii].bka_url.length > 0) {
               annexes_element = "<li><a href='" + protocol[i].annexes[ii].bka_url + "'>" + protocol[i].annexes[ii].pdf_name + "</a></li>";
@@ -35,9 +35,9 @@
             top_element.innerHTML = "<span id='top_" + protocol[i].top + "' class='top nr'>" + protocol[i].top + "</span> <span class='top title'>" + protocol[i].title + "</span>";
           }
 
-        } else if (typeof protocol[i].undefined !== 'undefined') {
+        } else if (typeof protocol[i].undefined !== 'undefined') { //for text without TOP
           top_element.innerHTML = protocol[i].undefined;
-        } else if (typeof protocol[i].bka_url !== 'undefined') {
+        } else if (typeof protocol[i].bka_url !== 'undefined') { //for annexes without TOP
           top_element.innerHTML = "<a href='" + protocol[i].bka_url + "'>" + protocol[i].pdf_name + "</a>";
         } else {
           top_element.innerHTML = "ERROR: There is no known Element in the protokoll JSON";
@@ -46,10 +46,21 @@
       }
     }
   };
-  //xmlhttp.open("GET", "protokolle/Bierlein-1/Beschlussprotokoll des 18. Ministerrates vom 6. November 2019/text.json", true);
-  xmlhttp.open("GET", "protokolle/Kurz-2/Beschlussprotokoll des 2. Ministerrates vom 15. Jänner 2020/text.json", true);
-  //xmlhttp.open("GET", "protokolle/Bierlein-1/Beschlussprotokoll des 17. Ministerrates vom 30. Oktober 2019/text.json", true);
-  xmlhttp.send();
+
+  var protocol_toc = new XMLHttpRequest();
+  protocol_toc.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var all_toc = this.responseText;
+      all_toc = all_toc.trim();
+      all_toc = all_toc.split("\n");
+      dump = "protokolle/" + all_toc[all_toc.length-1] + "/text.json";
+      protocol_json.open("GET", dump, true);
+      protocol_json.send();
+    }
+  }
+
+  protocol_toc.open("GET", "protokolle/toc.txt", true);
+  protocol_toc.send();
   </script>
 </footer>
 </html>
