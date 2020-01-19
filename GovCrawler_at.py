@@ -1,6 +1,7 @@
 import os
 import json
 from mastodon import Mastodon
+import re
 
 protocol_dir = "data/protokolle/"
 #last_protocol = "Kurz-2/Beschlussprotokoll des 2. Ministerrates vom 15. Jänner 2020"
@@ -30,7 +31,7 @@ else:
     )
 
     #create a thread with the latest protocol
-    toot = toot = mastodon.status_post(last_protocol + " #test", visibility="unlisted", spoiler_text="test, Hackathon 0x11")
+    toot = toot = mastodon.status_post(re.search(r"(.+)/(.+)", last_protocol)[2] + " #test", visibility="unlisted", spoiler_text="test, Hackathon 0x11")
     for top in protocol:
         try:
             for annex in top['annexes']:
