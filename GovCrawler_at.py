@@ -5,6 +5,7 @@ from mastodon import Mastodon
 protocol_dir = "data/protokolle/Kurz-2/"
 last_protocol = "Beschlussprotokoll des 2. Ministerrates vom 15. Jänner 2020"
 protocol_text_json = "/text.json"
+annexes = ""
 
 text_file = os.path.join(protocol_dir + last_protocol + protocol_text_json)
 
@@ -20,13 +21,20 @@ mastodon = Mastodon(
 
 #create a thread with the latest protocol
 toot = toot = mastodon.status_post(last_protocol + " #test", visibility="unlisted", spoiler_text="test, Hackathon 0x11")
-for i in protocol:
+for top in protocol:
     try:
-        print("Top " + protocol[protocol.index(i)]['top'] + ": " + protocol[protocol.index(i)]['title'])
-        toot = mastodon.status_reply(toot,"Top " + protocol[protocol.index(i)]['top'] + ": " + protocol[protocol.index(i)]['title'] + " #test")
+        for annex in top['annexes']:
+            annexes += f" {annex['bka_url']}"
+        print(f"Top {top['top']}: {top['title']} {annexes}")
+        toot = mastodon.status_reply(toot, f"Top {top['top']}: {top['title']} {annexes} #test")
+        annexes = ""
     except:
         try:
-            print(protocol[protocol.index(i)]['undefined'])
-            toot = mastodon.status_reply(toot, protocol[protocol.index(i)]['undefined'] + " #test")
+            print(top[f"{top['undefined']}"])
+            toot = mastodon.status_reply(toot, f"{top['undefined']} #test")
         except:
-            print("ERROR: There is no known Element in the protokoll JSON")
+            try:
+                print(f"{top['pdf_name']} {top['bka_url']}")
+                toot = mastodon.status_reply(toot, f"{top['pdf_name']} {top['bka_url']} #test")
+            except:
+                print("ERROR: There is no known Element in the protokoll JSON")

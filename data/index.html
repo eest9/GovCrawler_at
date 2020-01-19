@@ -15,7 +15,7 @@
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      var argument, i;
+      var argument, i, ii, annexes_element;
       i = 0;
       protocol = JSON.parse(this.responseText);
 
@@ -24,9 +24,21 @@
         top_element.id = "index-" + i;// Insert text
         top_element.className += "top";
         if (typeof protocol[i].top !== 'undefined') {
-          top_element.innerHTML = "<span id='top_" + protocol[i].top + "' class='top nr'>" + protocol[i].top + "</span> <span class='top title'>" + protocol[i].title + "</span>";
+          for (let ii in protocol[i].annexes) {
+            if (typeof protocol[i].annexes[ii].bka_url !== 'undefined' && protocol[i].annexes[ii].bka_url.length > 0) {
+              annexes_element = "<li><a href='" + protocol[i].annexes[ii].bka_url + "'>" + protocol[i].annexes[ii].pdf_name + "</a></li>";
+            }
+          }
+          if (typeof annexes_element !== 'undefined') {
+            top_element.innerHTML = "<span id='top_" + protocol[i].top + "' class='top nr'>" + protocol[i].top + "</span> <span class='top title'>" + protocol[i].title + "</span><ul>" + annexes_element + "</ul>";
+          } else {
+            top_element.innerHTML = "<span id='top_" + protocol[i].top + "' class='top nr'>" + protocol[i].top + "</span> <span class='top title'>" + protocol[i].title + "</span>";
+          }
+
         } else if (typeof protocol[i].undefined !== 'undefined') {
           top_element.innerHTML = protocol[i].undefined;
+        } else if (typeof protocol[i].bka_url !== 'undefined') {
+          top_element.innerHTML = "<a href='" + protocol[i].bka_url + "'>" + protocol[i].pdf_name + "</a>";
         } else {
           top_element.innerHTML = "ERROR: There is no known Element in the protokoll JSON";
         }

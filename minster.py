@@ -31,7 +31,7 @@ def fetch_protokoll_text(url):
     for par in main_text_raw:
         par_regex = re.search(r"^([0-9]+(\.[0-9]+)?)\.?(.+)", par.get_text())
         if par_regex:
-            par_obj = {"top":par_regex.group(1),"title":par_regex.group(3).lstrip()}
+            par_obj = {"top":par_regex.group(1),"title":par_regex.group(3).lstrip(),"annexes":[]}
         else:
             par_obj = {"undefined":par.get_text()}
         main_text.append(par_obj)
@@ -116,12 +116,6 @@ def main():
         protokoll_dir = os.path.join(DESINATION_DIR, titel)
         mkdir_p(protokoll_dir)
 
-        text_file = os.path.join(protokoll_dir, 'text.json')
-
-        with open(text_file, 'w') as f:
-            f.write(json.dumps(text, indent=4))
-            #return #for debuging
-
         pdfs_dir = os.path.join(protokoll_dir, 'pdfs')
         mkdir_p(pdfs_dir)
 
@@ -139,11 +133,29 @@ def main():
 
             pdf_name = pdf_name.replace('/', '_')
             pdf_path = os.path.join(pdfs_dir, pdf_top.replace('/', '_'), pdf_name)
-            #print('pdf_name ' + pdf_name)
-            #print('pdf_path ' + pdf_path)
-            #print('pdf_link ' + pdf_link)
+            print('pdf_top ' + pdf_top)
+            print('pdf_name ' + pdf_name)
+            print('pdf_path ' + pdf_path)
+            print('pdf_link ' + pdf_link)
+            if pdf_top != "none":
+                for top in text:
+                    try:
+                        if top['top'] == re.search(r"[0-9]+/([0-9\.]+)", pdf_top)[1]:
+                            print('pdf_top ' + pdf_top + " gefunden")
+                            top['annexes'].append({"bka_url":pdf_link,"local_path":pdf_path,"pdf_name":pdf_name})
+                            break
+                    except:
+                        print(top['undefined'] + "has no top nr")
+            else:
+                text.append({"bka_url":pdf_link,"local_path":pdf_path,"pdf_name":pdf_name})
+
             mkdir_p(os.path.dirname(pdf_path))
             download_file(pdf_link, pdf_path)
+
+        text_file = os.path.join(protokoll_dir, 'text.json')
+        with open(text_file, 'w') as f:
+            f.write(json.dumps(text, indent=4))
+            #return #for debuging
 
         return
 
