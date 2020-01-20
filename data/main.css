@@ -10,15 +10,29 @@
   float: right;
 }
 
-.top .nr {
-  font-weight: bold;
-}
-
-p.top {
+li.top {
+  padding-bottom: 10px;
+  list-style-type: none;
   text-indent: -18px;
   padding-left: 18px;
 }
 
 .top > ul {
   text-indent: 0px;
+}
+
+ul#consultations-list {
+  list-style-type: none;
+}
+
+.start_date {
+  float: left;
+}
+
+.end_date {
+  text-align: right;
+}
+
+.top .nr {
+  font-weight: bold;
 }

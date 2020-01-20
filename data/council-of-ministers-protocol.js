@@ -6,7 +6,7 @@ protocol_json.onreadystatechange = function() {
     protocol = JSON.parse(this.responseText);
 
     for (let i in protocol) {
-      var top_element = document.createElement("P");// Create a <p> element
+      var top_element = document.createElement("li");// Create a <p> element
       top_element.id = "index-" + i;// Insert text
       top_element.className += "top";
       if (typeof protocol[i].top !== 'undefined') { //for TOPs with annexes
@@ -28,7 +28,7 @@ protocol_json.onreadystatechange = function() {
       } else {
         top_element.innerHTML = "ERROR: There is no known Element in the protokoll JSON";
       }
-      document.getElementById("protocol").appendChild(top_element);
+      document.getElementById("tops").appendChild(top_element);
     }
   }
 };
