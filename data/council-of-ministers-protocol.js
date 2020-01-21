@@ -12,7 +12,7 @@ protocol_json.onreadystatechange = function() {
       if (typeof protocol[i].top !== 'undefined') { //for TOPs with annexes
         for (let ii in protocol[i].annexes) {
           if (typeof protocol[i].annexes[ii].bka_url !== 'undefined' && protocol[i].annexes[ii].bka_url.length > 0) {
-            annexes_element = "<li><a href='" + protocol[i].annexes[ii].bka_url + "'>" + protocol[i].annexes[ii].pdf_name + "</a></li>";
+            annexes_element = "<li><a href='" + protocol[i].annexes[ii].bka_url + "'>" + protocol[i].annexes[ii].pdf_title + "</a></li>";
           }
         }
         if (typeof annexes_element !== 'undefined') {
@@ -24,7 +24,7 @@ protocol_json.onreadystatechange = function() {
       } else if (typeof protocol[i].undefined !== 'undefined') { //for text without TOP
         top_element.innerHTML = protocol[i].undefined;
       } else if (typeof protocol[i].bka_url !== 'undefined') { //for annexes without TOP
-        top_element.innerHTML = "<a href='" + protocol[i].bka_url + "'>" + protocol[i].pdf_name + "</a>";
+        top_element.innerHTML = "<a href='" + protocol[i].bka_url + "'>" + protocol[i].pdf_title + "</a>";
       } else {
         top_element.innerHTML = "ERROR: There is no known Element in the protokoll JSON";
       }

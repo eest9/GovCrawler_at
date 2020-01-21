@@ -134,7 +134,7 @@ def main():
             pdf_name = pdf_name.replace('/', '_')
             pdf_path = os.path.join(pdfs_dir, pdf_top.replace('/', '_'), pdf_name)
             print(f'pdf_top {pdf_top}')
-            print(f'pdf_name {pdf_name}')
+            print(f'pdf_title {pdf_title}')
             print(f'pdf_path {pdf_path}')
             print(f'pdf_link {pdf_link}')
             if pdf_top != "none":
@@ -142,12 +142,12 @@ def main():
                     try:
                         if top['top'] == re.search(r"[0-9]+/([0-9\.]+)", pdf_top)[1]:
                             print(f'pdf_top {pdf_top} gefunden')
-                            top['annexes'].append({"bka_url":pdf_link,"local_path":pdf_path,"pdf_name":pdf_name})
+                            top['annexes'].append({"bka_url":pdf_link,"local_path":pdf_path,"pdf_title":pdf_title})
                             break
                     except:
-                        print(f'{top['undefined']} has no top nr')
+                        print(f"{top['undefined']} has no top nr")
             else:
-                text.append({"bka_url":pdf_link,"local_path":pdf_path,"pdf_name":pdf_name})
+                text.append({"bka_url":pdf_link,"local_path":pdf_path,"pdf_title":pdf_title})
 
             mkdir_p(os.path.dirname(pdf_path))
             download_file(pdf_link, pdf_path)

@@ -31,22 +31,22 @@ else:
     )
 
     #create a thread with the latest protocol
-    toot = toot = mastodon.status_post(re.search(r"(.+)/(.+)", last_protocol)[2] + " #test", visibility="unlisted", spoiler_text="test, Hackathon 0x11")
+    toot = toot = mastodon.status_post(re.search(r"(.+)/(.+)", last_protocol)[2], visibility="unlisted")
     for top in protocol:
         try:
             for annex in top['annexes']:
                 annexes += f" {annex['bka_url']}"
             print(f"Top {top['top']}: {top['title']} {annexes}")
-            toot = mastodon.status_reply(toot, f"Top {top['top']}: {top['title']} {annexes} #test")
+            toot = mastodon.status_reply(toot, f"Top {top['top']}: {top['title']} {annexes}")
             annexes = ""
         except:
             try:
                 print(top[f"{top['undefined']}"])
-                toot = mastodon.status_reply(toot, f"{top['undefined']} #test")
+                toot = mastodon.status_reply(toot, f"{top['undefined']}")
             except:
                 try:
-                    print(f"{top['pdf_name']} {top['bka_url']}")
-                    toot = mastodon.status_reply(toot, f"{top['pdf_name']} {top['bka_url']} #test")
+                    print(f"{top['pdf_title']} {top['bka_url']}")
+                    toot = mastodon.status_reply(toot, f"{top['pdf_title']} {top['bka_url']}")
                 except:
                     print("ERROR: There is no known Element in the protokoll JSON")
     with open(f"{protocol_dir}tooted.txt", 'a') as f:
