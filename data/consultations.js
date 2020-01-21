@@ -42,10 +42,11 @@ consultations_json.onreadystatechange = function() {
         for (let ii in annexes) {
           if (typeof annexes[ii].Urls.ContentUrl[2] != "undefined") {
             if(annexes[ii].Urls.ContentUrl[2].DataType == "Pdf") {
-              var top_element_annex = document.createElement("li")
+              var top_element_annex = document.createElement("li");
+              top_element_annex.className = "link";
 
               var top_element_url = document.createElement("a");
-              top_element_url.innerHTML = annexes[ii].Name;
+              top_element_url.innerHTML = annexes[ii].Name.replace(/_/g, " ");
               top_element_url.href = annexes[ii].Urls.ContentUrl[2].Url;
 
               top_element_annex.appendChild(top_element_url);
@@ -61,7 +62,7 @@ consultations_json.onreadystatechange = function() {
       }
 
       var top_element_url = document.createElement("a");
-      top_element_url.innerHTML = "View in Ris";
+      top_element_url.innerHTML = "\uD83D\uDD17 Der Begutachtungsentwurf im RIS";
       top_element_url.href = bill[i].Data.Metadaten.Allgemein.DokumentUrl;
       top_element.appendChild(top_element_url);
 

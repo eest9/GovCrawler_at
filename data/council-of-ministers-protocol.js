@@ -12,7 +12,7 @@ protocol_json.onreadystatechange = function() {
       if (typeof protocol[i].top !== 'undefined') { //for TOPs with annexes
         for (let ii in protocol[i].annexes) {
           if (typeof protocol[i].annexes[ii].bka_url !== 'undefined' && protocol[i].annexes[ii].bka_url.length > 0) {
-            annexes_element = "<li><a href='" + protocol[i].annexes[ii].bka_url + "'>" + protocol[i].annexes[ii].pdf_title + "</a></li>";
+            annexes_element = "<li class='link'><a href='" + protocol[i].annexes[ii].bka_url + "'>" + protocol[i].annexes[ii].pdf_title + "</a></li>";
           }
         }
         if (typeof annexes_element !== 'undefined') {
