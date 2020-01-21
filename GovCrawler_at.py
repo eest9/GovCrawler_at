@@ -2,14 +2,15 @@ import os
 import json
 from mastodon import Mastodon
 import re
+import textwrap
 
 protocol_dir = "data/protokolle/"
 #last_protocol = "Kurz-2/Beschlussprotokoll des 2. Ministerrates vom 15. Jänner 2020"
 protocol_text_json = "/text.json"
 annexes = ""
 
-hashtag = "#MRat"
-#hashtag = "#test"
+#hashtag = "#MRat"
+hashtag = "#test"
 
 with open(f"{protocol_dir}toc.txt", 'r') as f:
     last_protocol=f.readlines()[-1].strip()
@@ -41,8 +42,12 @@ else:
         try:
             for annex in top['annexes']:
                 annexes += f" {annex['bka_url']}"
-            print(f"Top {top['top']}: {top['title']} {annexes}")
-            toot = mastodon.status_reply(toot, f"Top {top['top']}: {top['title']} {hashtag}\n{annexes}")
+            toot_text = f"Top {top['top']}: {top['title']} {hashtag}\n{annexes}"
+#            toot_text = re.findall(r".{1,480}(?:[.]|\b|$)", toot_text.strip())
+            toot_text = textwrap.wrap(toot_text, width=480)
+            for toot_text_part in toot_text:
+                print(toot_text_part)
+                toot = mastodon.status_reply(toot, toot_text_part)
             annexes = ""
         except:
             try:
