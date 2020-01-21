@@ -34,7 +34,9 @@ else:
     )
 
     #create a thread with the latest protocol
-    toot = toot = mastodon.status_post(re.search(r"(.+)/(.+)", last_protocol)[2] + hashtag, visibility="unlisted")
+    protocol_title = re.search(r"(.+)/(.+)", last_protocol)[2]
+    protocol_title = protocol_title.replace("Ministerrat", "#Ministerrat\u200b")
+    toot = toot = mastodon.status_post(f"{protocol_title} {hashtag}", visibility="unlisted")
     for top in protocol:
         try:
             for annex in top['annexes']:
