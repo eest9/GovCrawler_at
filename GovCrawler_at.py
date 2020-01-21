@@ -8,6 +8,9 @@ protocol_dir = "data/protokolle/"
 protocol_text_json = "/text.json"
 annexes = ""
 
+hashtag = "#MRat"
+#hashtag = "#test"
+
 with open(f"{protocol_dir}toc.txt", 'r') as f:
     last_protocol=f.readlines()[-1].strip()
 print(f"read protocol {last_protocol}")
@@ -31,22 +34,22 @@ else:
     )
 
     #create a thread with the latest protocol
-    toot = toot = mastodon.status_post(re.search(r"(.+)/(.+)", last_protocol)[2], visibility="unlisted")
+    toot = toot = mastodon.status_post(re.search(r"(.+)/(.+)", last_protocol)[2] + hashtag, visibility="unlisted")
     for top in protocol:
         try:
             for annex in top['annexes']:
                 annexes += f" {annex['bka_url']}"
             print(f"Top {top['top']}: {top['title']} {annexes}")
-            toot = mastodon.status_reply(toot, f"Top {top['top']}: {top['title']} {annexes}")
+            toot = mastodon.status_reply(toot, f"Top {top['top']}: {top['title']} {hashtag}\n{annexes}")
             annexes = ""
         except:
             try:
                 print(top[f"{top['undefined']}"])
-                toot = mastodon.status_reply(toot, f"{top['undefined']}")
+                toot = mastodon.status_reply(toot, f"{top['undefined']} {hashtag}")
             except:
                 try:
                     print(f"{top['pdf_title']} {top['bka_url']}")
-                    toot = mastodon.status_reply(toot, f"{top['pdf_title']} {top['bka_url']}")
+                    toot = mastodon.status_reply(toot, f"{top['pdf_title']} {hashtag}\n{top['bka_url']}")
                 except:
                     print("ERROR: There is no known Element in the protokoll JSON")
     with open(f"{protocol_dir}tooted.txt", 'a') as f:
