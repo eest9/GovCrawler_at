@@ -1,21 +1,46 @@
+* {-webkit-font-smoothing: subpixel-antialiased;}
+
 body {
-  font-family: sans-serif;
+  font-family: DejaVu Sans, sans-serif;
 }
 
-#protocol, #consultations {
-  width: 50%
+/* mobile first */
+@media only screen and (min-width: 750px) {
+  #protocol, #consultations {
+    width: 50%
+  }
+
+  #protocol {
+    float: left;
+  }
+
+  #consultations {
+    float: right;
+  }
 }
 
-#protocol {
-  float: left;
-}
-
-#consultations {
-  float: right;
+ol, ul {
+  margin: 16px;
+  padding: 0px;
 }
 
 h1 {
   text-align: center;
+}
+
+h2, h3, p, li {
+  text-align: justify;
+  overflow-wrap: break-word;
+  font-size: 12pt;
+  font-weight: 100;
+}
+
+h2 {
+  font-weight: normal;
+}
+
+span.top.nr {
+  font-weight: normal;
 }
 
 li.top, li.consulation_bill {
@@ -24,11 +49,6 @@ li.top, li.consulation_bill {
   list-style-type: none;
   padding: 10px;
 
-}
-
-li.top {
-  text-indent: -18px;
-  padding-left: 28px;
 }
 
 li.link {
@@ -51,14 +71,14 @@ ul#consultations-list {
   list-style-type: none;
 }
 
+time {
+  font-weight: normal;
+}
+
 .start_date {
   float: left;
 }
 
 .end_date {
   text-align: right;
-}
-
-.top .nr {
-  font-weight: bold;
 }

@@ -24,13 +24,15 @@ consultations_json.onreadystatechange = function() {
       var top_element_dates = document.createElement("p");
 
       var top_element_start_date = document.createElement("div");
+      var start_date = bill[i].Data.Metadaten.Bundesgesetzblaetter.Begut.BeginnBegutachtungsfrist
       top_element_start_date.className += "start_date";
-      top_element_start_date.innerHTML = bill[i].Data.Metadaten.Bundesgesetzblaetter.Begut.BeginnBegutachtungsfrist;
+      top_element_start_date.innerHTML = "Begutachtungsbeginn:<br /><time datetime='" + start_date + "'>" + start_date + "</time>";
       top_element_dates.appendChild(top_element_start_date);
 
       var top_element_end_date = document.createElement("div");
+      var end_date = bill[i].Data.Metadaten.Bundesgesetzblaetter.Begut.EndeBegutachtungsfrist;
       top_element_end_date.className += "end_date";
-      top_element_end_date.innerHTML = bill[i].Data.Metadaten.Bundesgesetzblaetter.Begut.EndeBegutachtungsfrist;
+      top_element_end_date.innerHTML = "Begutachtungsende:<br /><time datetime='" + end_date + "'>" + end_date + "</time>";
       top_element_dates.appendChild(top_element_end_date);
 
       top_element.appendChild(top_element_dates);

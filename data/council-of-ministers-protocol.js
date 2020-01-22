@@ -16,9 +16,9 @@ protocol_json.onreadystatechange = function() {
           }
         }
         if (typeof annexes_element !== 'undefined') {
-          top_element.innerHTML = "<span id='top_" + protocol[i].top + "' class='top nr'>TOP: " + protocol[i].top + "</span> <span class='top title'>" + protocol[i].title + "</span><ul>" + annexes_element + "</ul>";
+          top_element.innerHTML = "<span id='top_" + protocol[i].top + "' class='top nr'>TOP " + protocol[i].top + ":</span> <span class='top title'>" + protocol[i].title + "</span><ul>" + annexes_element + "</ul>";
         } else {
-          top_element.innerHTML = "<span id='top_" + protocol[i].top + "' class='top nr'>TOP: " + protocol[i].top + "</span> <span class='top title'>" + protocol[i].title + "</span>";
+          top_element.innerHTML = "<span id='top_" + protocol[i].top + "' class='top nr'>TOP " + protocol[i].top + ":</span> <span class='top title'>" + protocol[i].title + "</span>";
         }
 
       } else if (typeof protocol[i].undefined !== 'undefined') { //for text without TOP

@@ -9,8 +9,8 @@ protocol_dir = "data/protokolle/"
 protocol_text_json = "/text.json"
 annexes = ""
 
-#hashtag = "#MRat"
-hashtag = "#test"
+hashtag = "#MRat"
+#hashtag = "#test"
 
 with open(f"{protocol_dir}toc.txt", 'r') as f:
     last_protocol=f.readlines()[-1].strip()
@@ -37,7 +37,7 @@ else:
     #create a thread with the latest protocol
     protocol_title = re.search(r"(.+)/(.+)", last_protocol)[2]
     protocol_title = protocol_title.replace("Ministerrat", "#Ministerrat\u200b")
-    toot = toot = mastodon.status_post(f"{protocol_title} {hashtag}", visibility="unlisted")
+    toot = mastodon.status_post(f"{protocol_title} {hashtag}", visibility="public")
     for top in protocol:
         try:
             for annex in top['annexes']:
