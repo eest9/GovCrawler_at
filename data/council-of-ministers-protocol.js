@@ -1,34 +1,46 @@
 var protocol_json = new XMLHttpRequest();
 protocol_json.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
-    var argument, i, ii, annexes_element;
+    var argument, i, ii;
     i = 0;
     protocol = JSON.parse(this.responseText);
 
     for (let i in protocol) {
-      var top_element = document.createElement("li");// Create a <p> element
-      top_element.id = "index-" + i;// Insert text
-      top_element.className += "top";
+      var top = document.createElement("li");// Create a <p> element
+      top.id = "index-" + i;// Insert text
+      top.className += "top";
       if (typeof protocol[i].top !== 'undefined') { //for TOPs with annexes
+        var annexes = document.createElement("ul");
         for (let ii in protocol[i].annexes) {
           if (typeof protocol[i].annexes[ii].bka_url !== 'undefined' && protocol[i].annexes[ii].bka_url.length > 0) {
-            annexes_element = "<li class='link'><a href='" + protocol[i].annexes[ii].bka_url + "'>" + protocol[i].annexes[ii].pdf_title + "</a></li>";
+            var annex = document.createElement("li");
+            annex.className = "link";
+            //annex = "<li class='link'><a href='" + protocol[i].annexes[ii].bka_url + "'>" + protocol[i].annexes[ii].pdf_title + "</a></li>";
+
+            var url = document.createElement("a");
+            url.innerHTML = protocol[i].annexes[ii].pdf_title;
+            url.href = protocol[i].annexes[ii].bka_url;
+
+            annexes.appendChild(url);
+
+            annexes.appendChild(annex);
           }
         }
-        if (typeof annexes_element !== 'undefined') {
-          top_element.innerHTML = "<span id='top_" + protocol[i].top + "' class='top nr'>TOP " + protocol[i].top + ":</span> <span class='top title'>" + protocol[i].title + "</span><ul>" + annexes_element + "</ul>";
-        } else {
-          top_element.innerHTML = "<span id='top_" + protocol[i].top + "' class='top nr'>TOP " + protocol[i].top + ":</span> <span class='top title'>" + protocol[i].title + "</span>";
+
+          top.innerHTML = "<span id='top_" + protocol[i].top + "' class='top nr'>TOP&#x00A0;" + protocol[i].top + ":</span> <span class='top title'>" + protocol[i].title + "</span>";
+
+        if (typeof annexes !== 'undefined') {
+          top.appendChild(annexes);
         }
 
       } else if (typeof protocol[i].undefined !== 'undefined') { //for text without TOP
-        top_element.innerHTML = protocol[i].undefined;
+        top.innerHTML = protocol[i].undefined;
       } else if (typeof protocol[i].bka_url !== 'undefined') { //for annexes without TOP
-        top_element.innerHTML = "<a href='" + protocol[i].bka_url + "'>" + protocol[i].pdf_title + "</a>";
+        top.innerHTML = "<a href='" + protocol[i].bka_url + "'>" + protocol[i].pdf_title + "</a>";
       } else {
-        top_element.innerHTML = "ERROR: There is no known Element in the protokoll JSON";
+        top.innerHTML = "ERROR: There is no known Element in the protokoll JSON";
       }
-      document.getElementById("tops").appendChild(top_element);
+      document.getElementById("tops").appendChild(top);
     }
   }
 };

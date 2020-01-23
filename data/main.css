@@ -26,6 +26,7 @@ ol, ul {
 
 h1 {
   text-align: center;
+  font-variant: small-caps
 }
 
 h2, h3, p, li {
@@ -55,8 +56,8 @@ li.link {
   list-style-type: none;
 }
 
-li.link:before {
-  content: "\1f517 ";
+a:before {
+  content: "\1f517\00A0"
 }
 
 li.top:last-of-type, li.consulation_bill:last-of-type {

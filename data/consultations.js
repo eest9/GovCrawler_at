@@ -5,70 +5,84 @@ consultations_json.onreadystatechange = function() {
     var bill = consultations.OgdSearchResult.OgdDocumentResults.OgdDocumentReference;
 
     for (let i in bill) {
-      var top_element = document.createElement("li");// Create a <p> element
-      top_element.id = "consulationt_bill-1";// Insert text
-      top_element.className += "consulation_bill";
+      var bill_element = document.createElement("li");// Create a <p> element
+      bill_element.id = "consulationt_bill-1";// Insert text
+      bill_element.className += "consulation_bill";
 
-      var top_element_title = document.createElement("h2");
-      top_element_title.innerHTML = bill[i].Data.Metadaten.Bundesgesetzblaetter.Titel;
-      top_element.appendChild(top_element_title);
+      var title = document.createElement("h2");
+      title.innerHTML = bill[i].Data.Metadaten.Bundesgesetzblaetter.Titel;
+      bill_element.appendChild(title);
 
-      var top_element_short_title = document.createElement("h3");
-      top_element_short_title.innerHTML = bill[i].Data.Metadaten.Bundesgesetzblaetter.Kurztitel;
-      top_element.appendChild(top_element_short_title);
+      var short_title = document.createElement("h3");
+      short_title.innerHTML = bill[i].Data.Metadaten.Bundesgesetzblaetter.Kurztitel;
+      bill_element.appendChild(short_title);
 
-      var top_element_mover = document.createElement("p");
-      top_element_mover.innerHTML = bill[i].Data.Metadaten.Bundesgesetzblaetter.Begut.EinbringendeStelle;
-      top_element.appendChild(top_element_mover);
+      var bill_mover = document.createElement("p");
+      bill_mover.innerHTML = bill[i].Data.Metadaten.Bundesgesetzblaetter.Begut.EinbringendeStelle;
+      bill_element.appendChild(bill_mover);
 
-      var top_element_dates = document.createElement("p");
+      var consulation_dates = document.createElement("p");
 
-      var top_element_start_date = document.createElement("div");
+      var consultation_start_date = document.createElement("div");
       var start_date = bill[i].Data.Metadaten.Bundesgesetzblaetter.Begut.BeginnBegutachtungsfrist
-      top_element_start_date.className += "start_date";
-      top_element_start_date.innerHTML = "Begutachtungsbeginn:<br /><time datetime='" + start_date + "'>" + start_date + "</time>";
-      top_element_dates.appendChild(top_element_start_date);
+      consultation_start_date.className += "start_date";
+      consultation_start_date.innerHTML = "Begutachtungsbeginn:<br /><time datetime='" + start_date + "'>" + start_date + "</time>";
+      consulation_dates.appendChild(consultation_start_date);
 
-      var top_element_end_date = document.createElement("div");
+      var consultation_end_date = document.createElement("div");
       var end_date = bill[i].Data.Metadaten.Bundesgesetzblaetter.Begut.EndeBegutachtungsfrist;
-      top_element_end_date.className += "end_date";
-      top_element_end_date.innerHTML = "Begutachtungsende:<br /><time datetime='" + end_date + "'>" + end_date + "</time>";
-      top_element_dates.appendChild(top_element_end_date);
+      consultation_end_date.className += "end_date";
+      consultation_end_date.innerHTML = "Begutachtungsende:<br /><time datetime='" + end_date + "'>" + end_date + "</time>";
+      consulation_dates.appendChild(consultation_end_date);
 
-      top_element.appendChild(top_element_dates);
+      bill_element.appendChild(consulation_dates);
 
       if (typeof bill[i].Data.Dokumentliste.ContentReference != "undefined") {
-        var annexes = bill[i].Data.Dokumentliste.ContentReference;
-        var top_element_annexes = document.createElement("ul");
+        var annexes_RIS = bill[i].Data.Dokumentliste.ContentReference;
+        var annexes = document.createElement("ul");
 
-        for (let ii in annexes) {
-          if (typeof annexes[ii].Urls.ContentUrl[2] != "undefined") {
-            if(annexes[ii].Urls.ContentUrl[2].DataType == "Pdf") {
-              var top_element_annex = document.createElement("li");
-              top_element_annex.className = "link";
+        for (let ii in annexes_RIS) {
+          if (typeof annexes_RIS[ii].Urls.ContentUrl[2] != "undefined") {
+            if(annexes_RIS[ii].Urls.ContentUrl[2].DataType == "Pdf") {
+              var annex = document.createElement("li");
+              annex.className += "link";
 
-              var top_element_url = document.createElement("a");
-              top_element_url.innerHTML = annexes[ii].Name.replace(/_/g, " ");
-              top_element_url.href = annexes[ii].Urls.ContentUrl[2].Url;
+              var url = document.createElement("a");
+              url.innerHTML = annexes_RIS[ii].Name.replace(/_/g, " ") + " (PDF)";
+              url.href = annexes_RIS[ii].Urls.ContentUrl[2].Url;
 
-              top_element_annex.appendChild(top_element_url);
-              top_element_annexes.appendChild(top_element_annex);
+              annex.appendChild(url);
+              annexes.appendChild(annex);
             } else {
-              var top_element_annex = document.createElement("li");
-              top_element_annex.innerHTML = annexes[ii].Name + " konnte nicht angezegt werden.";
-              top_element_annexes.appendChild(top_element_annex);
+              var annex = document.createElement("li");
+              annex.innerHTML = annexes_RIS[ii].Name + " konnte nicht angezegt werden.";
+              annexes.appendChild(annex);
             }
-            top_element.appendChild(top_element_annexes);
+          } else if (annexes_RIS[ii].Urls.ContentUrl.DataType == "Pdf") {
+            var annex = document.createElement("li");
+            annex.className += "link";
+
+            var url = document.createElement("a");
+            url.innerHTML = annexes_RIS[ii].Name.replace(/_/g, " ") + " (PDF)";
+            url.href = annexes_RIS[ii].Urls.ContentUrl.Url;
+
+            annex.appendChild(url);
+            annexes.appendChild(annex);
+          } else {
+            var annex = document.createElement("li");
+            annex.innerHTML = annexes_RIS[ii].Name + " konnte nicht angezegt werden.";
+            annexes.appendChild(annex);
           }
         }
+        bill_element.appendChild(annexes);
       }
 
-      var top_element_url = document.createElement("a");
-      top_element_url.innerHTML = "\uD83D\uDD17 Der Begutachtungsentwurf im RIS";
-      top_element_url.href = bill[i].Data.Metadaten.Allgemein.DokumentUrl;
-      top_element.appendChild(top_element_url);
+      var url = document.createElement("a");
+      url.innerHTML = "Der Begutachtungsentwurf im RIS";
+      url.href = bill[i].Data.Metadaten.Allgemein.DokumentUrl;
+      bill_element.appendChild(url);
 
-      document.getElementById("consultations-list").appendChild(top_element);
+      document.getElementById("consultations-list").appendChild(bill_element);
     }
   }
 };
