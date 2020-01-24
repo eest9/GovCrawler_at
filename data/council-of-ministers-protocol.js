@@ -28,7 +28,9 @@ protocol_json.onreadystatechange = function() {
         }
 
         var title = protocol[i].title.replace(/Zahl.+, betreffend/gmiu, "betreffend");
-        top.innerHTML = "<span id='top_" + protocol[i].top + "' class='top nr'>TOP&#x00A0;" + protocol[i].top + ":</span> <span class='top title'>" + title + "</span>";
+        var top_nr = "<span id='top_" + protocol[i].top + "' class='top nr'>TOP&#x00A0;" + protocol[i].top + ":</span>";
+        title = "<span class='top title'>" + title + "</span>"
+        top.innerHTML = top_nr + " " + title;
 
         if (typeof annexes !== 'undefined') {
           top.appendChild(annexes);

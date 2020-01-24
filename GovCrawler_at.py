@@ -10,7 +10,9 @@ protocol_text_json = "/text.json"
 annexes = ""
 
 hashtag = "#MRat"
+timer =  900
 #hashtag = "#test"
+#timer = 60
 
 with open(f"{protocol_dir}toc.txt", 'r') as f:
     last_protocol=f.readlines()[-1].strip()
@@ -43,7 +45,7 @@ else:
             for annex in top['annexes']:
                 annexes += f" {annex['bka_url']}"
             toot_text = f"Top {top['top']}: {top['title']} {hashtag}\n{annexes}"
-#            toot_text = re.findall(r".{1,480}(?:[.]|\b|$)", toot_text.strip())
+            toot_text = re.sub(r"Zahl.+, betreffend", "betreffend", toot_text)
             toot_text = textwrap.wrap(toot_text, width=480)
             for toot_text_part in toot_text:
                 print(toot_text_part)
@@ -59,5 +61,6 @@ else:
                     toot = mastodon.status_reply(toot, f"{top['pdf_title']} {hashtag}\n{top['bka_url']}")
                 except:
                     print("ERROR: There is no known Element in the protokoll JSON")
+        time.sleep(timer)
     with open(f"{protocol_dir}tooted.txt", 'a') as f:
         f.write(f"{last_protocol}\n")
