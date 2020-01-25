@@ -45,7 +45,7 @@ else:
             for annex in top['annexes']:
                 annexes += f" {annex['bka_url']}"
             toot_text = f"Top {top['top']}: {top['title']} {hashtag}\n{annexes}"
-            toot_text = re.sub(r"Zahl.+, betreffend", "betreffend", toot_text)
+            toot_text = re.sub(r"(?i)Zahl.+, betreffend", "betreffend", toot_text)
             toot_text = textwrap.wrap(toot_text, width=480)
             for toot_text_part in toot_text:
                 print(toot_text_part)

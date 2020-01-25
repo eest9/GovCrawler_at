@@ -19,6 +19,14 @@ body {
   }
 }
 
+nav > ul {
+  text-align: right;
+}
+
+nav > ul > li {
+  display: inline;
+}
+
 ol, ul {
   margin: 16px;
   padding: 0px;
