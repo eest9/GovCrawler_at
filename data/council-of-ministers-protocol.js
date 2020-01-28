@@ -11,6 +11,7 @@ protocol_json.onreadystatechange = function() {
       top.className += "top";
       if (typeof protocol[i].top !== 'undefined') { //for TOPs with annexes
         var annexes = document.createElement("ul");
+        annexes.className = "linklist";
         for (let ii in protocol[i].annexes) {
           if (typeof protocol[i].annexes[ii].bka_url !== 'undefined' && protocol[i].annexes[ii].bka_url.length > 0) {
             var annex = document.createElement("li");

@@ -40,6 +40,7 @@ consultations_json.onreadystatechange = function() {
       if (typeof bill[i].Data.Dokumentliste.ContentReference != "undefined") {
         var annexes_RIS = bill[i].Data.Dokumentliste.ContentReference;
         var annexes = document.createElement("ul");
+        annexes.className = "linklist";
 
         for (let ii in annexes_RIS) {
           if (typeof annexes_RIS[ii].Urls.ContentUrl[2] != "undefined") {

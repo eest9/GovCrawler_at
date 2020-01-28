@@ -2,6 +2,7 @@
 
 :root {
   --main-blue-light: #fafaFF;
+  --main-blue-light-2: #eaeaFF;
   --main-blue: #2727d7;
   --main-blue-dark: #0D0D45;
   --main-red: #d72727;
@@ -117,34 +118,38 @@ li {
   list-style-type: none;
 }
 
-li.top, li.consulation_bill {
-  border: solid var(--main-blue-dark) 1px;
-  background-color: var(--main-blue-light);
+li.top, li.consulation_bill, .impressum {
+  border: solid var(--main-blue-light-2) 1px;
+  background-color: white;
   border-bottom: none;
   padding: 10px;
-
 }
 
-li:first-of-type {
+li:first-of-type, .impressum:first-of-type {
   border-top-left-radius: 9px;
   border-top-right-radius: 9px;
 }
 
-li:last-of-type {
+li:last-of-type, .impressum:last-of-type {
   border-bottom-left-radius: 9px;
   border-bottom-right-radius: 9px;
 }
 
+li.top:last-of-type, li.consulation_bill:last-of-type, .impressum:last-of-type {
+  border-bottom: solid var(--main-blue-light-2) 1px;
+}
+
 li.link {
   list-style-type: none;
+  text-align: left;
+}
+
+ul.linklist {
+  margin: 12pt;
 }
 
 a:before {
   content: "\1f517\00A0";
-}
-
-li.top:last-of-type, li.consulation_bill:last-of-type {
-  border-bottom: solid var(--main-blue-dark) 1px;
 }
 
 .top > ul {
