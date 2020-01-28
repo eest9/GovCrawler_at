@@ -17,13 +17,17 @@ body {
     width: 50%
   }
 
-  #protocol {
-    float: left;
+  article {
+    display: flex;
   }
 
-  #consultations {
-    float: right;
+  section {
+    width: 33%;
   }
+}
+
+section {
+  margin: 16px;
 }
 
 article a {
@@ -54,10 +58,13 @@ nav > ul > li {
   margin: 0px;
   padding: 10px 0px;
   border-radius: 9px;
+  border: solid;
+  border-color: var(--main-blue-dark);
 }
 
 nav > ul > li:hover {
   background-color: var(--main-red);
+  border-color: white;
 }
 
 nav > ul > li > a:before {
@@ -97,11 +104,14 @@ span.top.nr {
   font-weight: normal;
 }
 
+li {
+  list-style-type: none;
+}
+
 li.top, li.consulation_bill {
   border: solid var(--main-blue-dark) 1px;
   background-color: var(--main-blue-light);
   border-bottom: none;
-  list-style-type: none;
   padding: 10px;
 
 }
