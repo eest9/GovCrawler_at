@@ -21,8 +21,7 @@ protocol_json.onreadystatechange = function() {
             url.innerHTML = protocol[i].annexes[ii].pdf_title;
             url.href = protocol[i].annexes[ii].bka_url;
 
-            annexes.appendChild(url);
-
+            annex.appendChild(url);
             annexes.appendChild(annex);
           }
         }

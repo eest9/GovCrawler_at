@@ -9,25 +9,34 @@
 
 body {
   font-family: DejaVu Sans, sans-serif;
+  text-align: center;
+}
+
+section {
+  max-width: 700px;
+  margin: 16px;
+}
+
+article {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 734px;
 }
 
 /* mobile first */
-@media only screen and (min-width: 750px) {
+@media only screen and (min-width: 824px) {
   #protocol, #consultations {
-    width: 50%
+    width: 50%;
   }
 
   article {
     display: flex;
+    max-width: 1464px;
   }
 
   section {
     width: 33%;
   }
-}
-
-section {
-  margin: 16px;
 }
 
 article a {
@@ -43,20 +52,20 @@ article a:hover {
 nav {
   margin: -8px;
   background-color: var(--main-blue-dark);
-  padding: 16px 24px;
+  padding: 3px 24px;
   color: white;
 }
 
 nav > ul {
   text-align: left;
   margin: 0px;
+
 }
 
 nav > ul > li {
-  display: inline;
-/*  background-color: lightgray;*/
+  display: inline-flex;
   margin: 0px;
-  padding: 10px 0px;
+  padding: 0px 0px;
   border-radius: 9px;
   border: solid;
   border-color: var(--main-blue-dark);
@@ -79,7 +88,7 @@ nav > ul > li > a {
 }
 
 ol, ul {
-  margin: 16px;
+  margin: 0px;
   padding: 0px;
 }
 
