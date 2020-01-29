@@ -1,16 +1,47 @@
 * {-webkit-font-smoothing: subpixel-antialiased;}
 
 :root {
-  --main-blue-light: #fafaFF;
-  --main-blue-light-2: #eaeaFF;
-  --main-blue: #2727d7;
-  --main-blue-dark: #0D0D45;
-  --main-red: #d72727;
+/*eest9 color theme*/
+/*main color*/
+  --darkest-blue: #15181d;
+  --dark-blue: #303743;
+  --main-blue: #4a5668;
+  --light-blue: #9ca2ac;
+  --lightest-blue: #eeeff1;
+
+/*mainly for links*/
+  --darkest-cyan: #1b3533;
+  --dark-cyan: #3f7b76;
+  --main-cyan: #62c1b9;
+  --light-cyan: #a9ddd8;
+  --lightest-cyan: #f0f9f8;
+
+/*mainly for highlightning*/
+  --darkest-yellow: #3e3424;
+  --dark-yellow: #907954;
+  --main-yellow: #e2be83;
+  --light-yellow: #efdbbb;
+  --lightest-yellow: #fcf9f3;
+
+/*mainly for additional design*/
+  --darkest-orange: #3e1f18;
+  --dark-orange: #904837;
+  --main-orange: #e27056;
+  --light-orange: #efb1a2;
+  --lightest-orange: #fcf2ef;
+
+/*mainly for action*/
+  --darkest-red: #360c12;
+  --dark-red: #7d1c2a;
+  --main-red: #c42b42;
+  --light-red: #de8b97;
+  --lightest-red: #f9ebed;
 }
 
 body {
   font-family: DejaVu Sans, sans-serif;
   text-align: center;
+  background-color: var(--lightest-blue);
 }
 
 section {
@@ -41,18 +72,19 @@ article {
 }
 
 article a {
-  color: var(--main-blue-dark);
+  color: var(--dark-cyan);
   text-decoration: none;
 }
 
 article a:hover {
-  color: var(--main-blue);
+  color: var(--dark-cyan);
   text-decoration: none;
+  background-color: var(--lightest-cyan);
 }
 
 nav {
   margin: -8px;
-  background-color: var(--main-blue-dark);
+  background-color: var(--dark-blue);
   padding: 3px 24px;
   color: white;
 }
@@ -69,7 +101,7 @@ nav > ul > li {
   padding: 0px 0px;
   border-radius: 9px;
   border: solid;
-  border-color: var(--main-blue-dark);
+  border-color: var(--dark-blue);
 }
 
 nav > ul > li:hover {
@@ -96,7 +128,7 @@ ol, ul {
 h1 {
   text-align: center;
   font-variant: small-caps;
-  color: var(--main-blue-dark);
+  color: var(--dark-blue);
 }
 
 h2, h3, p, li {
@@ -119,7 +151,7 @@ li {
 }
 
 li.top, li.consulation_bill, .impressum {
-  border: solid var(--main-blue-light-2) 1px;
+  border: solid var(--lightest-blue) 1px;
   background-color: white;
   border-bottom: none;
   padding: 10px;
@@ -136,7 +168,7 @@ li:last-of-type, .impressum:last-of-type {
 }
 
 li.top:last-of-type, li.consulation_bill:last-of-type, .impressum:last-of-type {
-  border-bottom: solid var(--main-blue-light-2) 1px;
+  border-bottom: solid var(--lightest-blue) 1px;
 }
 
 li.link {
